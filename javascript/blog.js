@@ -53,11 +53,43 @@ document.addEventListener('DOMContentLoaded', function() {
     let postsLoaded = 4; // Posts inicialmente visibles (Nov, Oct, Sep, Ago)
     const postsPerLoad = 3; // Posts a cargar por click
     
-    // Toggle del dropdown
+    // CRÍTICO: Función para posicionar el dropdown correctamente
+    function positionDropdown() {
+        if (!orderBtn || !dropdownMenu) return;
+        
+        const rect = orderBtn.getBoundingClientRect();
+        dropdownMenu.style.top = `${rect.bottom + 10}px`;
+        
+        // En móvil, centrar; en desktop, alinear a la derecha del botón
+        if (window.innerWidth <= 768) {
+            dropdownMenu.style.left = `${rect.left + (rect.width / 2)}px`;
+            dropdownMenu.style.transform = 'translateX(-50%)';
+        } else {
+            dropdownMenu.style.left = `${rect.right}px`;
+            dropdownMenu.style.transform = 'translateX(-100%)';
+        }
+    }
+    
+    // Toggle del dropdown con posicionamiento correcto
     orderBtn.addEventListener('click', function(e) {
         e.stopPropagation();
+        positionDropdown();
         dropdownMenu.classList.toggle('active');
         orderBtn.classList.toggle('active');
+    });
+    
+    // Reposicionar dropdown al cambiar tamaño de ventana
+    window.addEventListener('resize', function() {
+        if (dropdownMenu.classList.contains('active')) {
+            positionDropdown();
+        }
+    });
+    
+    // Reposicionar dropdown al hacer scroll
+    window.addEventListener('scroll', function() {
+        if (dropdownMenu.classList.contains('active')) {
+            positionDropdown();
+        }
     });
     
     // Cerrar dropdown al hacer click fuera
@@ -259,7 +291,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const knownPT = {
             '2025-10': '/html/octuber-PT.html',
             '2025-09': '/html/september-PT.html',
-            '2025-08': '/html/august-PT.html'
+            '2025-08': '/html/august-PT.html',
+            '2025-07': '/html/july-PT.html'
         };
 
         const targetUrl = knownPT[month];
@@ -271,7 +304,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Fallback: contenido aún no disponible
         console.warn('Conteúdo não disponível para:', month);
         try {
-            // Si Bootstrap está presente, podríamos mostrar un toast; por ahora alert minimal
             alert('Conteúdo em breve.');
         } catch (_) {}
     });

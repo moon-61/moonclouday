@@ -94,6 +94,9 @@ body {
 
 .blog-hero {
     padding: 40px 0 60px;
+    /* CRÍTICO: position relative para que el dropdown se posicione correctamente */
+    position: relative;
+    z-index: 10;
 }
 
 .blog-main-title {
@@ -128,6 +131,8 @@ body {
 .filter-box {
     position: relative;
     display: inline-block;
+    /* CRÍTICO: z-index alto para prioridad */
+    z-index: 1000;
 }
 
 .filter-btn {
@@ -145,6 +150,8 @@ body {
     gap: 10px;
     transition: all 0.3s;
     box-shadow: 0 4px 15px rgba(184, 130, 217, 0.2);
+    position: relative;
+    z-index: 1001;
 }
 
 .filter-btn:hover {
@@ -161,20 +168,18 @@ body {
     transform: rotate(180deg);
 }
 
-/* CORREGIDO: z-index más alto para que aparezca sobre las cards */
+/* CRÍTICO: z-index MUY alto y position fixed para máxima prioridad */
 .filter-dropdown {
-    position: absolute;
-    top: calc(100% + 10px);
-    right: 0;
+    position: fixed;
     background: white;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     min-width: 250px;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s;
-    z-index: 9999; /* AUMENTADO de 100 a 9999 */
+    z-index: 99999;
     overflow: hidden;
 }
 
@@ -206,6 +211,12 @@ body {
     color: var(--color-purple-dark);
 }
 
+/* CRÍTICO: Section con z-index bajo para que no tape el dropdown */
+.blog-posts-section {
+    position: relative;
+    z-index: 1;
+}
+
 .posts-container {
     display: flex;
     flex-direction: column;
@@ -223,6 +234,8 @@ body {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.4s ease;
     position: relative;
+    /* CRÍTICO: z-index bajo para no interferir con dropdown */
+    z-index: 1;
 }
 
 .blog-card::before {
@@ -240,6 +253,8 @@ body {
 .blog-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    /* CRÍTICO: Incluso al hover no debe superar el dropdown */
+    z-index: 2;
 }
 
 .blog-card:hover::before {
@@ -259,7 +274,7 @@ body {
     right: 0;
     bottom: 0;
     background: linear-gradient(135deg, rgba(184, 130, 217, 0.95), rgba(163, 207, 217, 0.95));
-    z-index: 10;
+    z-index: 3;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -392,7 +407,7 @@ body {
 .btn-read-more {
     background: linear-gradient(135deg, var(--color-blue), var(--color-purple-dark));
     color: white;
-    text-decoration: none; /* ensure link-styled buttons have no underline */
+    text-decoration: none;
     border: none;
     padding: 12px 30px;
     border-radius: 50px;
@@ -496,7 +511,6 @@ body {
         font-size: 4rem;
     }
 
-    /* CORREGIDO: Centrar filtro en tablets */
     .filter-box {
         margin-top: 20px;
         display: flex;
@@ -509,7 +523,7 @@ body {
         max-width: 150px;
     }
 
-    /* CORREGIDO: Título centrado en móvil */
+    /* Título centrado en móvil */
     .blog-title-wrapper {
         text-align: center;
     }
@@ -529,13 +543,18 @@ body {
         text-align: center;
     }
 
-    /* CORREGIDO: Filtro centrado y con más espacio en móvil */
+    /* CRÍTICO: Más espacio para el dropdown en móvil */
+    .blog-hero {
+        padding: 40px 0 100px;
+        min-height: 250px;
+    }
+
     .filter-box {
         margin-top: 30px;
         display: flex;
         justify-content: center;
         width: 100%;
-        margin-bottom: 40px; /* ESPACIO EXTRA para que el dropdown no tape content */
+        margin-bottom: 20px;
     }
 
     .filter-btn {
@@ -544,10 +563,10 @@ body {
         justify-content: center;
     }
 
-    /* CORREGIDO: Dropdown centrado en móvil */
+    /* Dropdown se posiciona debajo del botón en móvil */
     .filter-dropdown {
+        position: absolute;
         left: 50%;
-        right: auto;
         transform: translateX(-50%) translateY(-10px);
         width: 90%;
         max-width: 300px;
@@ -610,9 +629,13 @@ body {
         font-size: 0.95rem;
     }
     
-    /* CORREGIDO: Botón de filtro más pequeño en pantallas muy pequeñas */
     .filter-btn {
         padding: 12px 20px;
         font-size: 0.9rem;
+    }
+    
+    /* Más espacio vertical en pantallas muy pequeñas */
+    .blog-hero {
+        padding: 30px 0 120px;
     }
 }
