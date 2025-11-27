@@ -26,25 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     })();
 
-    // Replace visible occurrences of Cloudsy -> Clouday (text nodes and image alts)
-    (function normalizeBrandingText() {
-        // Update image alt attributes
-        document.querySelectorAll('img[alt]').forEach(img => {
-            if (img.alt) img.alt = img.alt.replace(/Cloudsy/gi, 'Clouday');
-        });
-        // Replace in text nodes
-        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
-        const toChange = [];
-        let node;
-        while ((node = walker.nextNode())) {
-            if (node.nodeValue && /Cloudsy/i.test(node.nodeValue)) {
-                toChange.push(node);
-            }
-        }
-        toChange.forEach(n => {
-            n.nodeValue = n.nodeValue.replace(/Cloudsy/gi, 'Clouday');
-        });
-    })();
     
     // Smooth scroll para los links de navegación
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -84,23 +65,25 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+    
     // Language Selector
-const langBtn = document.getElementById('langBtn');
-const langDropdown = document.getElementById('langDropdown');
+    const langBtn = document.getElementById('langBtn');
+    const langDropdown = document.getElementById('langDropdown');
 
-if (langBtn && langDropdown) {
-    langBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        langDropdown.classList.toggle('active');
-    });
+    if (langBtn && langDropdown) {
+        langBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            langDropdown.classList.toggle('active');
+        });
 
-    document.addEventListener('click', function(e) {
-        if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
-            langDropdown.classList.remove('active');
-        }
-    });
-}
-    // Efecto parallax suave en las imágenes (respetando motion preferences)
+        document.addEventListener('click', function(e) {
+            if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+                langDropdown.classList.remove('active');
+            }
+        });
+    }
+    
+    // Efecto parallax suave SOLO en hero image (respetando motion preferences)
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (!prefersReducedMotion.matches) {
         let lastScrollTop = 0;
@@ -115,13 +98,7 @@ if (langBtn && langDropdown) {
                 heroImage.style.transform = `translateY(${yPos}px) scale(1.05)`;
             }
             
-            // Illustration parallax
-            const illustration = document.querySelector('.illustration-image');
-            if (illustration) {
-                const speed = 0.3;
-                const yPos = -(scrollTop * speed);
-                illustration.style.transform = `translateY(${yPos}px)`;
-            }
+            // ELIMINADO: Illustration parallax - ahora solo aparece con AOS
             
             lastScrollTop = scrollTop;
         });
@@ -170,16 +147,16 @@ if (langBtn && langDropdown) {
         });
     });
     
-    // Efecto hover para la imagen de ilustración
+    // Efecto hover SIMPLE para la imagen de ilustración (Bakugo) - SOLO AUMENTAR TAMAÑO
     const illustrationImage = document.querySelector('.illustration-image');
     
     if (illustrationImage) {
         illustrationImage.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.05) rotate(2deg)';
+            this.style.transform = 'scale(1.05)';
         });
         
         illustrationImage.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1) rotate(0deg)';
+            this.style.transform = 'scale(1)';
         });
     }
     
@@ -295,8 +272,6 @@ if (langBtn && langDropdown) {
     document.querySelectorAll('.animate-on-scroll').forEach(elem => {
         observer.observe(elem);
     });
-    
-    // Efecto de partículas eliminado por usabilidad y performance
     
     // Log de bienvenida en consola
     console.log('%c🎨 Bem-vindo ao Moon Cloudsy! ', 'background: linear-gradient(135deg, #B882D9, #A3CFD9); color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px; font-weight: bold;');
