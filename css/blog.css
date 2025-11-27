@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -162,6 +161,7 @@ body {
     transform: rotate(180deg);
 }
 
+/* CORREGIDO: z-index más alto para que aparezca sobre las cards */
 .filter-dropdown {
     position: absolute;
     top: calc(100% + 10px);
@@ -174,7 +174,7 @@ body {
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s;
-    z-index: 100;
+    z-index: 9999; /* AUMENTADO de 100 a 9999 */
     overflow: hidden;
 }
 
@@ -496,8 +496,11 @@ body {
         font-size: 4rem;
     }
 
+    /* CORREGIDO: Centrar filtro en tablets */
     .filter-box {
         margin-top: 20px;
+        display: flex;
+        justify-content: center;
     }
 }
 
@@ -506,8 +509,52 @@ body {
         max-width: 150px;
     }
 
+    /* CORREGIDO: Título centrado en móvil */
+    .blog-title-wrapper {
+        text-align: center;
+    }
+
     .blog-main-title {
         font-size: 3rem;
+        display: block;
+        text-align: center;
+    }
+
+    .blog-main-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .blog-subtitle {
+        text-align: center;
+    }
+
+    /* CORREGIDO: Filtro centrado y con más espacio en móvil */
+    .filter-box {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 40px; /* ESPACIO EXTRA para que el dropdown no tape content */
+    }
+
+    .filter-btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+
+    /* CORREGIDO: Dropdown centrado en móvil */
+    .filter-dropdown {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%) translateY(-10px);
+        width: 90%;
+        max-width: 300px;
+    }
+
+    .filter-dropdown.active {
+        transform: translateX(-50%) translateY(0);
     }
 
     .card-image-wrapper {
@@ -555,7 +602,17 @@ body {
         font-size: 2.5rem;
     }
 
+    .blog-subtitle {
+        font-size: 1.1rem;
+    }
+
     .card-description {
         font-size: 0.95rem;
+    }
+    
+    /* CORREGIDO: Botón de filtro más pequeño en pantallas muy pequeñas */
+    .filter-btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
     }
 }
