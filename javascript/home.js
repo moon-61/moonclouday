@@ -1,13 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar AOS (Animate On Scroll)
     AOS.init({
         duration: 800,
         easing: 'ease-in-out',
         once: true,
         offset: 100
     });
-
-    // Ensure favicon on Home page
     (function ensureFavicon() {
         if (!document.querySelector('link[rel*="icon"]')) {
             const link = document.createElement('link');
@@ -18,15 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
             document.head.appendChild(link);
         }
     })();
-
-    // Normalize document title occurrences to "Moon Clouday"
-    (function normalizeTitle() {
-        if (document.title) {
-            document.title = document.title.replace(/moon\s*clouds?y?/ig, 'Moon Clouday').replace(/cloudsy/ig, 'Clouday');
-        }
-    })();
-
-    
     // Smooth scroll para los links de navegación
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -65,8 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-    
-    // Language Selector
     const langBtn = document.getElementById('langBtn');
     const langDropdown = document.getElementById('langDropdown');
 
@@ -82,8 +68,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    // Efecto parallax suave SOLO en hero image (respetando motion preferences)
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (!prefersReducedMotion.matches) {
         let lastScrollTop = 0;
@@ -97,9 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const yPos = -(scrollTop * speed);
                 heroImage.style.transform = `translateY(${yPos}px) scale(1.05)`;
             }
-            
-            // ELIMINADO: Illustration parallax - ahora solo aparece con AOS
-            
             lastScrollTop = scrollTop;
         });
     }
@@ -126,13 +107,10 @@ document.addEventListener('DOMContentLoaded', function() {
             aboutCard.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
         });
     }
-    
-    // Animación de hover mejorada para las feature cards
     const featureCards = document.querySelectorAll('.feature-card');
     
     featureCards.forEach(card => {
         card.addEventListener('mouseenter', function() {
-            // Añadir efecto de escala al icono
             const icon = this.querySelector('.card-icon');
             if (icon) {
                 icon.style.transform = 'rotate(360deg) scale(1.1)';
@@ -147,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Efecto hover SIMPLE para la imagen de ilustración (Bakugo) - SOLO AUMENTAR TAMAÑO
+    // Efecto hover imagen de ilustración Bakugo
     const illustrationImage = document.querySelector('.illustration-image');
     
     if (illustrationImage) {
@@ -159,8 +137,6 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.transform = 'scale(1)';
         });
     }
-    
-    // Contador animado (opcional - para estadísticas futuras)
     function animateCounter(element, target, duration = 2000) {
         let start = 0;
         const increment = target / (duration / 16);
@@ -175,8 +151,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 16);
     }
-    
-    // Newsletter form submission
     const newsletterForm = document.querySelector('.newsletter-form');
     
     if (newsletterForm) {
@@ -187,20 +161,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const submitBtn = this.querySelector('.btn-newsletter');
             
             if (emailInput.value) {
-                // Cambiar el texto del botón
                 const originalHTML = submitBtn.innerHTML;
                 submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enviando...';
                 submitBtn.disabled = true;
-                
-                // Simular envío (aquí puedes integrar con tu backend)
                 setTimeout(() => {
                     submitBtn.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>Inscrito!';
                     submitBtn.style.background = '#28a745';
-                    
-                    // Limpiar el formulario
                     emailInput.value = '';
-                    
-                    // Restaurar el botón después de 3 segundos
                     setTimeout(() => {
                         submitBtn.innerHTML = originalHTML;
                         submitBtn.style.background = '';
@@ -210,8 +177,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    // Añadir efecto de escritura al título hero (opcional)
     const heroTitle = document.querySelector('.hero-title h1');
     
     if (heroTitle) {
@@ -245,8 +210,6 @@ document.addEventListener('DOMContentLoaded', function() {
             navbar.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
         }
     });
-    
-    // Intersection Observer para animaciones adicionales
     const observerOptions = {
         threshold: 0.2,
         rootMargin: '0px 0px -50px 0px'
@@ -267,13 +230,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }, observerOptions);
-    
-    // Observar elementos con clase 'animate-on-scroll'
     document.querySelectorAll('.animate-on-scroll').forEach(elem => {
         observer.observe(elem);
     });
-    
-    // Log de bienvenida en consola
     console.log('%c🎨 Bem-vindo ao Moon Cloudsy! ', 'background: linear-gradient(135deg, #B882D9, #A3CFD9); color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px; font-weight: bold;');
     console.log('%cDesigner em formação | PUC-SP', 'color: #FF9933; font-size: 12px;');
     

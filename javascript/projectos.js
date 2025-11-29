@@ -227,8 +227,6 @@ document.addEventListener('DOMContentLoaded', function() {
    
     const figmaBtn = document.querySelector('.btn-figma');
     
-    
-    // PERFORMANCE: REDUCIR ANIMACIONES
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     
     if (prefersReducedMotion.matches) {

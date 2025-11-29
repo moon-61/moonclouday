@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // INICIALIZAR AOS (ANIMACIONES)
     AOS.init({
         duration: 800,
         easing: 'ease-in-out',
@@ -19,8 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
-    // CERRAR NAVBAR EN MÓVIL
     const navLinks = document.querySelectorAll('.nav-link');
     const navbarCollapse = document.querySelector('.navbar-collapse');
     
@@ -69,8 +66,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (shareUrl) {
                 window.open(shareUrl, '_blank', 'width=600,height=400');
-                
-                // Mostrar feedback visual
                 const originalHTML = this.innerHTML;
                 this.innerHTML = '<i class="bi bi-check"></i>';
                 
@@ -80,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    // COPIAR LINK AL HACER DOBLE CLICK EN TÍTULO
     const postTitle = document.querySelector('.post-title');
     
     if (postTitle) {
@@ -116,7 +110,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    // READING PROGRESS BAR
     const progressBar = document.createElement('div');
     progressBar.style.cssText = `
         position: fixed;
@@ -144,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         progressBar.style.width = clampedProgress + '%';
     });
-    // SCROLL TO TOP BUTTON
     const scrollTopBtn = document.createElement('button');
     scrollTopBtn.innerHTML = '<i class="bi bi-arrow-up"></i>';
     scrollTopBtn.style.cssText = `
@@ -217,9 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ANIMACIONES PARA LOS STICKERS
     const stickers = document.querySelectorAll('.sticker-decoration');
-    
     stickers.forEach((sticker, index) => {
-        // Añadir interactividad al hacer hover
         sticker.addEventListener('mouseenter', function() {
             this.style.transform = 'scale(1.2) rotate(15deg)';
         });
@@ -227,14 +217,10 @@ document.addEventListener('DOMContentLoaded', function() {
         sticker.addEventListener('mouseleave', function() {
             this.style.transform = 'scale(1) rotate(0deg)';
         });
-        
-        // Animación aleatoria de entrada
         setTimeout(() => {
             sticker.style.opacity = '0.9';
         }, 300 * index);
     });
-    
-    // PERFORMANCE: REDUCIR ANIMACIONES
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     
     if (prefersReducedMotion.matches) {
@@ -246,8 +232,6 @@ document.addEventListener('DOMContentLoaded', function() {
             sticker.style.animation = 'none';
         });
     }
-    
-    // ANIMACIONES CSS DINÁMICAS
     const style = document.createElement('style');
     style.textContent = `
         @keyframes slideIn {
@@ -278,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
     
-    // TABLA DE CONTENIDOS (AUTOMÁTICA)
+    // TABLA DE CONTENIDOS 
     const headings = document.querySelectorAll('.content-heading');
     
     if (headings.length > 0) {
@@ -362,13 +346,4 @@ document.addEventListener('DOMContentLoaded', function() {
         '%c🎨 Página de artículo carregada com sucesso!',
         'color: #FF9933; font-size: 12px; font-family: Quicksand, sans-serif; padding: 5px 0;'
     );
-    
-    // Calcular tiempo de lectura
-    const content = document.querySelector('.post-content');
-    if (content) {
-        const words = content.textContent.trim().split(/\s+/).length;
-        const readingTime = Math.ceil(words / 200);
-        console.log(`📖 Tempo de leitura estimado: ${readingTime} minutos`);
-    }
-    
 });

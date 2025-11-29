@@ -48,10 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     filterTabs.forEach(tab => {
         tab.addEventListener('click', function() {
-            // Remover active de todos
             filterTabs.forEach(t => t.classList.remove('active'));
             
-            // Añadir active al clickeado
             this.classList.add('active');
             
             const filter = this.getAttribute('data-filter');
@@ -74,23 +72,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', function() {
-            // Cambiar icono y texto
             const icon = this.querySelector('i');
             const originalHTML = this.innerHTML;
             
             this.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Carregando...';
             this.disabled = true;
-            
-            // Simular carga de más noticias
             setTimeout(() => {
-                // Aquí irían las nuevas noticias cargadas
-                // Por ahora solo mostramos un mensaje
                 this.innerHTML = '<i class="bi bi-check-circle-fill"></i> Todas as notícias carregadas!';
                 this.style.background = 'linear-gradient(135deg, var(--color-green), var(--color-green-dark))';
                 this.style.color = 'white';
                 this.style.borderColor = 'var(--color-green)';
-                
-                // Restaurar después de 3 segundos
                 setTimeout(() => {
                     this.innerHTML = originalHTML;
                     this.style.background = '';
@@ -156,7 +147,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(style);
-    // PERFORMANCE: REDUCIR ANIMACIONES
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     
     if (prefersReducedMotion.matches) {
@@ -212,8 +202,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
-    // Añadir animaciones para notificaciones
     const animStyle = document.createElement('style');
     animStyle.textContent = `
         @keyframes slideIn {
